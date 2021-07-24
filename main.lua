@@ -26,8 +26,9 @@ local Hole = require('hole')
 function love.load()
     math.randomseed(os.time())
 
+    Display:fullscreen()
     love.window.setMode(Display.width, Display.height, {
-        -- fullscreen = true,
+        fullscreen = Display.isFullScreen,
         resizable = true
     })
 
