@@ -32,7 +32,11 @@ function love.load()
     })
 
     shooter = Shooter(Display.width/2, Display.height/2)
+    
     bullets = {}
+
+    timerLimit = 2 -- segundos
+    timer = timerLimit
     robots = {}
 
     holes = {}
@@ -43,6 +47,21 @@ function love.load()
 end
 
 function love.update(dt)
+
+    -- Criação automática de [robots]
+    timer = timer - dt
+    if timer <= 0 then
+        local indexhole = math.random(1, #holes)
+        local robot = Robot(holes[indexhole].x, holes[indexhole].y)
+        table.insert(robots,robot)
+        
+        timerLimit = timerLimit * 0.93
+        timer = math.random(timerLimit, timerLimit * 1.3)
+        if timerLimit <= math.random(0,1) then
+            timerLimit = timerLimit + math.random(0,1) + math.random(0,1)
+        end
+    end
+
     shooter:update(dt)
 
     for indexBullets = #bullets, 1, -1 do
@@ -91,6 +110,8 @@ function love.draw()
     love.graphics.print('FPS: ' .. fps, 10, 12)
     love.graphics.print('Quantidade de balas: ' .. qtBullets, 10, 24)
     love.graphics.print('Quantidade de robores: ' .. qtRobots, 10, 38)
+    love.graphics.print('Timer de robores: ' .. timer, 10, 50)
+    love.graphics.print('timerLimit de robores: ' .. timerLimit, 10, 62)
 end
 
 function love.keypressed(key)
