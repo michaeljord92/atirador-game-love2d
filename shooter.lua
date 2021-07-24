@@ -1,9 +1,9 @@
 local Sprite = require('sprite')
 
 
-local function mouseEntityAngle(x, y)
-    return math.atan2(love.mouse.getY()-y, love.mouse.getX()-x )
-end
+-- local function mouseEntityAngle(x, y)
+--     return math.atan2(love.mouse.getY()-y, love.mouse.getX()-x )
+-- end
 
 ---
 ---Criar um novo [shooter].
