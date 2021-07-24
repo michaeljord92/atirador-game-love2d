@@ -107,11 +107,11 @@ function love.draw()
     
     shooter:draw()
     
-    love.graphics.print('FPS: ' .. fps, 10, 12)
-    love.graphics.print('Quantidade de balas: ' .. qtBullets, 10, 24)
-    love.graphics.print('Quantidade de robores: ' .. qtRobots, 10, 38)
-    love.graphics.print('Timer de robores: ' .. timer, 10, 50)
-    love.graphics.print('timerLimit de robores: ' .. timerLimit, 10, 62)
+    -- love.graphics.print('FPS: ' .. fps, 10, 12)
+    -- love.graphics.print('Quantidade de balas: ' .. qtBullets, 10, 24)
+    -- love.graphics.print('Quantidade de robores: ' .. qtRobots, 10, 38)
+    -- love.graphics.print('Timer de robores: ' .. timer, 10, 50)
+    -- love.graphics.print('timerLimit de robores: ' .. timerLimit, 10, 62)
 end
 
 function love.keypressed(key)
