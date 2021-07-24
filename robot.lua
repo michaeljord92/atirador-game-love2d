@@ -1,6 +1,8 @@
 local Sprite = require('sprite')
 local Display = require('display')
 
+ROBOT_SPEED = 120
+
 ---
 ---Criar um novo [robot].
 ---
@@ -14,8 +16,9 @@ return function (x, y, direction, sprite)
     entity.x = x or math.random(0, Display.width)
     entity.y = y or math.random(0, Display.height)
     entity.sprite = sprite or Sprite.robot
-    entity.speed = 100
+    entity.speed = ROBOT_SPEED
     entity.direction = direction or 0
+    entity.radius = 23
 
     entity.targetEntityAngle = function (self, target)
         return math.atan2(
@@ -39,6 +42,7 @@ return function (x, y, direction, sprite)
             self.sprite:getWidth()/2, -- centro no eixo x
             self.sprite:getHeight()/2 -- centro no eixo y
         )
+        -- love.graphics.circle('line', self.x, self.y, self.radius)
     end
 
     return entity

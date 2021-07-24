@@ -19,6 +19,8 @@ return function (x, y, sprite)
     entity.sprite = sprite or Sprite.shooter
     entity.speed = 160
     entity.rotation = 0
+    entity.radius = 25
+
 
     entity.mouseEntityAngle = function (self)
         return math.atan2(love.mouse.getY()-self.y, love.mouse.getX()-self.x )
@@ -40,14 +42,17 @@ return function (x, y, sprite)
         self.rotation = self:mouseEntityAngle()
     end
 
-    entity.draw = function (self) love.graphics.draw(
-        self.sprite, 
-        self.x, self.y, -- posição
-        self.rotation,  -- rotação
-        nil, nil, -- escala
-        self.sprite:getWidth()/2, -- centro no eixo x
-        self.sprite:getHeight()/2 -- centro no eixo y
-    )
+    entity.draw = function (self) 
+        love.graphics.draw(
+            self.sprite, 
+            self.x, self.y, -- posição
+            self.rotation,  -- rotação
+            nil, nil, -- escala
+            self.sprite:getWidth()/2, -- centro no eixo x
+            self.sprite:getHeight()/2 -- centro no eixo y
+        )
+        -- love.graphics.circle('line', self.x, self.y, self.radius)
+
     end
 
     return entity

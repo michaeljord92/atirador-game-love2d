@@ -34,18 +34,26 @@ function love.load()
     shooter = Shooter(Display.width/2, Display.height/2)
     bullets = {}
     robots = {}
-    
 end
 
 function love.update(dt)
     shooter:update(dt)
 
-    for i = #bullets, 1, -1 do
-        bullets[i]:update(dt)
+    for indexBullets = #bullets, 1, -1 do
+        bullets[indexBullets]:update(dt)
 
-        if bullets[i].x <= 0 or bullets[i].x > Display.width or 
-        bullets[i].y <= 0 or bullets[i].y > Display.height then
-            table.remove(bullets, i)
+        -- Bala no limite da tela
+        if bullets[indexBullets]:screenBoundary() then
+            table.remove(bullets, indexBullets)
+        else
+            -- Colisão da bala com os robores 
+            for indexRobots = #robots, 1, -1 do
+                if collides(bullets[indexBullets], robots[indexRobots]) then
+                    table.remove(robots, indexRobots)
+                    table.remove(bullets, indexBullets)
+                    break
+                end
+            end
         end
     end
 
@@ -75,8 +83,6 @@ function love.draw()
     love.graphics.print('Quantidade de robores: ' .. qtRobots, 10, 38)
 end
 
-
-
 function love.keypressed(key)
     if  key == 'space' then
         local bullet = Bullet(shooter.x,shooter.y,shooter:mouseEntityAngle())
@@ -92,4 +98,13 @@ function love.keypressed(key)
         love.event.quit()
     end
 
+end
+
+
+function collides(entity1, entity2)
+    if math.sqrt((entity1.x - entity2.x)^2 + (entity1.y - entity2.y)^2 ) 
+    <= (entity1.radius + entity2.radius) then
+        return true
+    end
+    return false
 end
