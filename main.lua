@@ -33,6 +33,7 @@ function love.load()
 
     shooter = Shooter(Display.width/2, Display.height/2)
     bullets = {}
+    robots = {}
     
 end
 
@@ -48,7 +49,13 @@ function love.update(dt)
         end
     end
 
+    for i = #robots, 1, -1 do
+        robots[i]:update(dt, shooter)
+    end
+
     fps = love.timer.getFPS()
+    qtBullets = #bullets
+    qtRobots = #robots
 end
 
 function love.draw()
@@ -56,26 +63,29 @@ function love.draw()
     for _, bullet in ipairs(bullets) do
         bullet:draw()
     end
+
+    for _, robot in ipairs(robots) do
+        robot:draw()
+    end
     
     shooter:draw()
-
     
     love.graphics.print('FPS: ' .. fps, 10, 12)
-    love.graphics.print('Quantidade de balas: ' .. #bullets, 10, 24)
-
+    love.graphics.print('Quantidade de balas: ' .. qtBullets, 10, 24)
+    love.graphics.print('Quantidade de robores: ' .. qtRobots, 10, 38)
 end
 
 
 
 function love.keypressed(key)
-    -- if state == 'start' and (key == 'return' or key == 'space') then
-        
-    --     state = 'play'
-    -- end
     if  key == 'space' then
         local bullet = Bullet(shooter.x,shooter.y,shooter:mouseEntityAngle())
         table.insert(bullets,bullet)
-        
+    end
+
+    if  key == 'return' then
+        local robot = Robot()
+        table.insert(robots,robot)
     end
 
     if  key == 'escape' then
