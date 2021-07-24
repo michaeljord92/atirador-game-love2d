@@ -17,10 +17,10 @@
 
 
 local Display = require('display')
-local Sprite = require('sprite')
 local Shooter = require('shooter')
 local Robot = require('robot')
 local Bullet = require('bullet')
+local Hole = require('hole')
 
 
 function love.load()
@@ -34,6 +34,12 @@ function love.load()
     shooter = Shooter(Display.width/2, Display.height/2)
     bullets = {}
     robots = {}
+
+    holes = {}
+    table.insert(holes, Hole(40,40))
+    table.insert(holes, Hole(Display.width - 40,40))
+    table.insert(holes, Hole(40,Display.height - 40))
+    table.insert(holes, Hole(Display.width - 40, Display.height - 40))
 end
 
 function love.update(dt)
@@ -68,6 +74,10 @@ end
 
 function love.draw()
 
+    for index, hole in ipairs(holes) do
+        hole:draw()
+    end
+
     for _, bullet in ipairs(bullets) do
         bullet:draw()
     end
@@ -84,22 +94,25 @@ function love.draw()
 end
 
 function love.keypressed(key)
+    -- Atira um [bullet]
     if  key == 'space' then
         local bullet = Bullet(shooter.x,shooter.y,shooter:mouseEntityAngle())
         table.insert(bullets,bullet)
     end
 
+    -- Cria um novo [robot]
     if  key == 'return' then
-        local robot = Robot()
+        local indexhole = math.random(1,#holes)
+        local robot = Robot(holes[indexhole].x, holes[indexhole].y)
         table.insert(robots,robot)
     end
 
+    -- Sai do jogo
     if  key == 'escape' then
         love.event.quit()
     end
 
 end
-
 
 function collides(entity1, entity2)
     if math.sqrt((entity1.x - entity2.x)^2 + (entity1.y - entity2.y)^2 ) 
