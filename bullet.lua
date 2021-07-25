@@ -2,7 +2,7 @@ local Sprite = require('sprite')
 local Display = require('display')
 
 
-BULLET_SPEED = 100
+BULLET_SPEED = 300
 
 ---
 ---Criar um novo [bullet].

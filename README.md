@@ -13,13 +13,8 @@ Os comandos e controles do atirador são:
     - atirar:              'espaço'
     - especial:            ''
 
+<!-- ![Screenshot](/assets/screenshot/Screenshot_20210724_163530.png "Screenshot") -->
 
+![Screenshot](https://raw.githubusercontent.com/michaeljord92/atirador-game-love2d/main//assets/screenshot/Screenshot_20210724_163530.png "Screenshot")
 
-
- <p align="center"> 
- <img alingn="center" src="https://repository-images.githubusercontent.com/389022207/196c8de4-b61c-4649-ab58-3988b963ba7d" />
- </p>
-
- <p align="center"> 
- (Screenshot) :robot:
- </p>
+<h5 align="center">(Screenshot) :robot:</h5>
