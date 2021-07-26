@@ -1,4 +1,7 @@
 local Sprite = require('sprite')
+local World = require('world')
+local Bullet = require('entities/bullet')
+
 
 
 -- local function mouseEntityAngle(x, y)
@@ -20,13 +23,16 @@ return function (x, y, sprite)
     entity.speed = 160
     entity.rotation = 0
     entity.radius = 25
-
-
-    entity.mouseEntityAngle = function (self)
-        return math.atan2(love.mouse.getY()-self.y, love.mouse.getX()-self.x )
+    
+    entity.shoot = function (self, bullets)
+        local bullet = Bullet(self.x,self.y,World.mouseEntityAngle(self))
+        table.insert(bullets,bullet)
     end
 
     entity.update = function (self, dt, upKey, downKey, leftKey, rightKey)
+       
+        self.rotation = World.mouseEntityAngle(self)
+       
         if love.keyboard.isDown(upKey or 'w') then
             self.y = self.y - self.speed * dt
         end
@@ -39,7 +45,6 @@ return function (x, y, sprite)
         if love.keyboard.isDown(rightKey or 'd') then
             self.x = self.x + self.speed * dt
         end
-        self.rotation = self:mouseEntityAngle()
     end
 
     entity.draw = function (self) 

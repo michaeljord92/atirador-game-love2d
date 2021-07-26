@@ -6,6 +6,8 @@
     ],
     "Lua.diagnostics.globals": [
         "shooter",
-        "fps"
+        "fps",
+        "timerLimit",
+        "timer"
     ]
 }

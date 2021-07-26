@@ -17,10 +17,13 @@
 
 
 local Display = require('display')
-local Shooter = require('shooter')
-local Robot = require('robot')
-local Bullet = require('bullet')
-local Hole = require('hole')
+local Keypressed = require('keypressed')
+local Entities = require('entities')
+local States = require('states')
+local Bullet = require('entities/bullet')
+local World = require('world')
+
+
 
 
 function love.load()
@@ -32,81 +35,35 @@ function love.load()
         resizable = true
     })
 
-    shooter = Shooter(Display.width/2, Display.height/2)
-    
-    bullets = {}
-
-    timerLimit = 2 -- segundos
-    timer = timerLimit
-    robots = {}
-
-    holes = {}
-    table.insert(holes, Hole(40,40))
-    table.insert(holes, Hole(Display.width - 40,40))
-    table.insert(holes, Hole(40,Display.height - 40))
-    table.insert(holes, Hole(Display.width - 40, Display.height - 40))
+    -- timerLimit = 2 -- segundos
+    -- timer = timerLimit
+    Entities.robots.timerLimit = 2
+    Entities.robots.timer = Entities.robots.timerLimit
 end
 
 function love.update(dt)
 
-    -- Criação automática de [robots]
-    timer = timer - dt
-    if timer <= 0 then
-        local indexhole = math.random(1, #holes)
-        local robot = Robot(holes[indexhole].x, holes[indexhole].y)
-        table.insert(robots,robot)
-        
-        timerLimit = timerLimit * 0.93
-        timer = math.random(timerLimit, timerLimit * 1.3)
-        if timerLimit <= math.random(0,1) then
-            timerLimit = timerLimit + math.random(0,1) + math.random(0,1)
-        end
-    end
-
-    shooter:update(dt)
-
-    for indexBullets = #bullets, 1, -1 do
-        bullets[indexBullets]:update(dt)
-
-        -- Bala no limite da tela
-        if bullets[indexBullets]:screenBoundary() then
-            table.remove(bullets, indexBullets)
-        else
-            -- Colisão da bala com os robores 
-            for indexRobots = #robots, 1, -1 do
-                if collides(bullets[indexBullets], robots[indexRobots]) then
-                    table.remove(robots, indexRobots)
-                    table.remove(bullets, indexBullets)
-                    break
-                end
-            end
-        end
-    end
-
-    for i = #robots, 1, -1 do
-        robots[i]:update(dt, shooter)
+    if States[World.state] then
+        States[World.state].update(dt) 
     end
 
     fps = love.timer.getFPS()
-    qtBullets = #bullets
-    qtRobots = #robots
+    qtBullets = #Entities.bullets.entities
+    qtRobots = #Entities.robots.entities
 end
 
 function love.draw()
 
-    for index, hole in ipairs(holes) do
-        hole:draw()
+    if States[World.state] then
+        States[World.state].draw() 
     end
 
-    for _, bullet in ipairs(bullets) do
-        bullet:draw()
-    end
-
-    for _, robot in ipairs(robots) do
-        robot:draw()
-    end
+    -- for key, _ in pairs(Entities) do
+    --     if Entities[key].draw then
+    --         Entities[key]:draw()
+    --     end
+    -- end
     
-    shooter:draw()
     
     -- love.graphics.print('FPS: ' .. fps, 10, 12)
     -- love.graphics.print('Quantidade de balas: ' .. qtBullets, 10, 24)
@@ -116,30 +73,16 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    -- Atira um [bullet]
-    if  key == 'space' then
-        local bullet = Bullet(shooter.x,shooter.y,shooter:mouseEntityAngle())
-        table.insert(bullets,bullet)
+    if Keypressed[key] then
+        Keypressed[key]()
     end
-
-    -- Cria um novo [robot]
-    if  key == 'return' then
-        local indexhole = math.random(1,#holes)
-        local robot = Robot(holes[indexhole].x, holes[indexhole].y)
-        table.insert(robots,robot)
-    end
-
-    -- Sai do jogo
-    if  key == 'escape' then
-        love.event.quit()
-    end
-
 end
 
-function collides(entity1, entity2)
-    if math.sqrt((entity1.x - entity2.x)^2 + (entity1.y - entity2.y)^2 ) 
-    <= (entity1.radius + entity2.radius) then
-        return true
+function love.mousepressed(x, y, button, istouch)
+    print(button)
+    if button == 1 then
+        if World.state == "play" then
+            Entities.shooter:shoot(Entities.bullets.entities)
+        end
     end
-    return false
-end
+ end
