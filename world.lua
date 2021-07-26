@@ -2,7 +2,7 @@ local Display = require('display')
 
 
 local world = {}
-world.state = "failed"
+world.state = "start"
 
 world.collides = function (entity1, entity2)
     if math.sqrt((entity1.x - entity2.x)^2 + (entity1.y - entity2.y)^2 ) 

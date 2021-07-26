@@ -4,7 +4,7 @@ local Fonts = require('fonts')
 local menu = {}
 
 menu.pause = {
-    text = "PaUsAdO",
+    text = "PaUsEd",
     text2 = "Pressione SPACE para continuar\n ou ESC para sair",
     draw = function ()
         -- love.graphics.line(Display.width/2, 0, Display.width/2, Display.height)

@@ -20,7 +20,6 @@ local Display = require('display')
 local Keypressed = require('keypressed')
 local Entities = require('entities')
 local States = require('states')
-local Bullet = require('entities/bullet')
 local World = require('world')
 
 
@@ -35,8 +34,6 @@ function love.load()
         resizable = true
     })
 
-    -- timerLimit = 2 -- segundos
-    -- timer = timerLimit
     Entities.robots.timerLimit = 2
     Entities.robots.timer = Entities.robots.timerLimit
 end
@@ -57,13 +54,6 @@ function love.draw()
     if States[World.state] then
         States[World.state].draw() 
     end
-
-    -- for key, _ in pairs(Entities) do
-    --     if Entities[key].draw then
-    --         Entities[key]:draw()
-    --     end
-    -- end
-    
     
     -- love.graphics.print('FPS: ' .. fps, 10, 12)
     -- love.graphics.print('Quantidade de balas: ' .. qtBullets, 10, 24)

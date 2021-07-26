@@ -5,7 +5,6 @@ local Hole = require('entities/hole')
 local World = require('world')
 
 
-
 local entities = {}
 
 entities.holes = {}
@@ -83,6 +82,5 @@ entities.robots.update = function (self,dt)
 end
 
 entities.shooter = Shooter(Display.width/2, Display.height/2)
-
 
 return entities
