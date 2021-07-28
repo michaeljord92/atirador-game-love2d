@@ -21,7 +21,8 @@ local states = {
                     Entities[key]:draw()
                 end
             end  
-            Menu.pause.draw()
+            Menu.scoreboard:draw()
+            Menu.pause:draw()
         end,
     },
 
@@ -36,20 +37,22 @@ local states = {
         end,
         draw = function ()
             World.drawGround()
+            Menu.scoreboard:draw()
             for key, _ in pairs(Entities) do
                 if Entities[key].draw then
                     Entities[key]:draw()
                 end
             end  
         end,
+        Menu.scoreboard:draw()
     },
 
-    -- Pausar o jogo
+    -- Inicio do jogo
     start = {
         update = function (dt)    
         end,
         draw = function ()
-            Menu.start.draw()
+            Menu.start:draw()
         end,
     },
 
@@ -58,7 +61,8 @@ local states = {
         update = function (dt)    
         end,
         draw = function ()
-            Menu.failed.draw()
+            Menu.scoreboard:draw()
+            Menu.failed:draw()
         end,
     },
 

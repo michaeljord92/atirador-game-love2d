@@ -31,6 +31,8 @@ local key_map = {
                 table.remove(Entities.bullets.entities)
             end
             Entities.shooter.x, Entities.shooter.y = Display.width/2, Display.height/2 
+
+            World.point = 0
             
             World.state = "play"
         end

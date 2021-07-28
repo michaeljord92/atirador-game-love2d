@@ -40,6 +40,7 @@ entities.bullets.update = function (self,dt)
                 if World.collides(self.entities[indexBullets], entities.robots.entities[indexRobots]) then
                     table.remove(entities.robots.entities, indexRobots)
                     table.remove(self.entities, indexBullets)
+                    World.point = World.point + 1
                     break
                 end
             end
