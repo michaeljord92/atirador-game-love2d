@@ -8,6 +8,8 @@
         "shooter",
         "fps",
         "timerLimit",
-        "timer"
+        "timer",
+        "qtRobots",
+        "qtBullets"
     ]
 }

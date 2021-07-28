@@ -12,7 +12,7 @@ Os comandos e controles do atirador são:
     - mover para direita:   'd'
     - atirar:               'espaço' ou botão esquerdo do mouse
     - adicionar inimigo:    'backspace'
-    - especial:             ''
+    - especial:             'rshifit'
 
 __________________________________________________________________
 ## Screenshots
