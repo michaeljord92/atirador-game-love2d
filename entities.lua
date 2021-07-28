@@ -82,6 +82,6 @@ entities.robots.update = function (self,dt)
     end
 end
 
-entities.shooter = Shooter(Display.width/2, Display.height/2)
+entities.shooter = Shooter(Display.width/2, Display.height/2, entities.bullets.entities)
 
 return entities

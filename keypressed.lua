@@ -15,7 +15,9 @@ local key_map = {
         
         -- Atira um [bullet]
         elseif World.state == "play" then
-            Entities.shooter:shoot(Entities.bullets.entities)
+            if not Entities.shooter.especial then
+                Entities.shooter:shoot(Entities.bullets.entities)                
+            end
         
         -- Reinicia o jogo
         elseif World.state == "failed" then
@@ -57,6 +59,16 @@ local key_map = {
         -- Sai do jogo
         else
             States.sair()
+        end
+    end,
+
+    -- Ativa o especial
+    lshift = function ()
+        if World.state == "play" then
+            if not Entities.shooter.especial then
+                Entities.shooter.especial = true
+                Entities.shooter.especial_time = 2
+            end
         end
     end
 }

@@ -29,6 +29,9 @@ local states = {
     -- Rodando o jogo
     play = {
         update = function (dt)
+            -- if Entities.shooter.especial then
+            --     Entities.shooter:shoot(Entities.bullets.entities)
+            -- end
             for key, _ in pairs(Entities) do
                 if Entities[key].update then
                     Entities[key]:update(dt)
